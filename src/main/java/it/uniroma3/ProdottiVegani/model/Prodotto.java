@@ -6,6 +6,8 @@ import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -15,6 +17,15 @@ import jakarta.persistence.OneToMany;
 
 @Entity
 public class Prodotto {
+	
+	public enum SkinType {
+        SECCA,
+        GRASSA,
+        MISTA,
+        SENSIBILE,
+        NORMALE
+    }
+	
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -37,8 +48,9 @@ public class Prodotto {
     @Column(nullable = false)
     private boolean crueltyFree;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String skinType;   // es. "secca", "grassa", "sensibile"
+    private SkinType skinType;
 
     @ManyToOne
     private Brand brand;
@@ -116,14 +128,13 @@ public class Prodotto {
         this.crueltyFree = crueltyFree;
     }
 
-    public String getSkinType() {
+    public SkinType getSkinType() {
         return skinType;
     }
 
-    public void setSkinType(String skinType) {
+    public void setSkinType(SkinType skinType) {
         this.skinType = skinType;
     }
-
     public Brand getBrand() {
         return brand;
     }
