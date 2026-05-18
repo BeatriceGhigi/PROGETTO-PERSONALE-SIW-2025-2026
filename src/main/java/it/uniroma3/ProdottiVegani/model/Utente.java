@@ -37,6 +37,9 @@ public class Utente {
 
     @OneToMany(mappedBy = "utente")
     private List<Routine> routines;
+    
+    @OneToMany(mappedBy = "utente")
+    private List<Wishlist> wishlist;
 
     // COSTRUTTORE
     public Utente() {
@@ -91,8 +94,17 @@ public class Utente {
     public void setRoutines(List<Routine> routines) {
         this.routines = routines;
     }
+    
 
-    @Override
+    public List<Wishlist> getWishlist() {
+		return wishlist;
+	}
+
+	public void setWishlist(List<Wishlist> wishlist) {
+		this.wishlist = wishlist;
+	}
+
+	@Override
     public int hashCode() {
         return Objects.hash(id);
     }

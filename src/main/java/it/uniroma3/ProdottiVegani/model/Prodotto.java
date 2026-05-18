@@ -73,6 +73,9 @@ public class Prodotto {
 
     @OneToMany(mappedBy = "prodotto")
     private List<Routine> routineSteps;
+    
+    @OneToMany(mappedBy = "prodotto")
+    private List<Wishlist> wishlist;
 
     // COSTRUTTORE
     public Prodotto() {
@@ -181,8 +184,17 @@ public class Prodotto {
     public void setRoutineSteps(List<Routine> routineSteps) {
         this.routineSteps = routineSteps;
     }
+    
 
-    @Override
+    public List<Wishlist> getWishlist() {
+		return wishlist;
+	}
+
+	public void setWishlist(List<Wishlist> wishlist) {
+		this.wishlist = wishlist;
+	}
+
+	@Override
     public int hashCode() {
         return Objects.hash(id);
     }
