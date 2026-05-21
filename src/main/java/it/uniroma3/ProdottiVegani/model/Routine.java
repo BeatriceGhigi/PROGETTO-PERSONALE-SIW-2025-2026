@@ -45,6 +45,7 @@ public class Routine {
         
     }
 
+    // GET & SET
     public Long getId() {
         return id;
     }
@@ -85,7 +86,8 @@ public class Routine {
         this.utente = utente;
     }
 
-
+    
+//EQUALS & HASCHCODE
     @Override
     public int hashCode() {
         return Objects.hash(id);

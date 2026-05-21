@@ -3,6 +3,8 @@ import java.util.List;
 import java.util.Objects;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -28,7 +30,7 @@ public class Utente {
     @Column(nullable = false)
     private String password;
 
-    @jakarta.persistence.Enumerated(jakarta.persistence.EnumType.STRING)
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private SkinType skinType;
 
@@ -46,6 +48,7 @@ public class Utente {
     	
     }
 
+    //GETT & SET
     public Long getId() {
         return id;
     }
@@ -78,8 +81,26 @@ public class Utente {
     public void setSkinType(SkinType skinType) {
         this.skinType = skinType;
     }
+    
+    //EQUALS & HASHCODE
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 
-    public List<Recensione> getReviews() {
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Utente other = (Utente) obj;
+        return Objects.equals(id, other.id);
+    }
+
+   /* public List<Recensione> getReviews() {
         return reviews;
     }
 
@@ -102,22 +123,7 @@ public class Utente {
 
 	public void setWishlist(List<Wishlist> wishlist) {
 		this.wishlist = wishlist;
-	}
+	}*/
 
-	@Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Utente other = (Utente) obj;
-        return Objects.equals(id, other.id);
-    }
+	
 }
