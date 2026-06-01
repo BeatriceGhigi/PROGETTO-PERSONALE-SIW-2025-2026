@@ -22,24 +22,35 @@ public class Brand {
     @Column(length = 2000)
     private String descrizione;
 
-    @Column(nullable = false)
+    @Column(nullable = false)  // da capire
     private boolean vegan;
 
-    @Column(nullable = false)
+    @Column(nullable = false)    //da capire
     private boolean crueltyFree;
 
     private String paese;
 
-    private String sitoWeb;
+    private String sitoWeb;  
 
     @OneToMany(mappedBy = "brand")
-    private List<Prodotto> prodotti;
+    private List<Prodotto> prodotti; 
+    
+    
+ /*   public List<Prodotto> getProdotti() {
+        return prodotti;
+    }
+
+    public void setProdotti(List<Prodotto> prodotti) {
+        this.prodotti = prodotti;
+    }*/
 
     // COSTRUTTORE
     public Brand() {
         
     }
 
+    
+    //GET & SET
     public Long getId() {
         return id;
     }
@@ -96,14 +107,8 @@ public class Brand {
         this.sitoWeb = sitoWeb;
     }
 
-    public List<Prodotto> getProdotti() {
-        return prodotti;
-    }
-
-    public void setProdotti(List<Prodotto> prodotti) {
-        this.prodotti = prodotti;
-    }
-
+   
+//EQUALS & HASHCODE
     @Override
     public int hashCode() {
         return Objects.hash(id);

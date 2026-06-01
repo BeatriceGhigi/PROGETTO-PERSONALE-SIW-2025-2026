@@ -42,6 +42,7 @@ public class Recensione {
 
     }
 
+    //GET & SET
     public Long getId() {
         return id;
     }
@@ -98,6 +99,7 @@ public class Recensione {
 		this.dataUltimaModifica = dataUltimaModifica;
 	}
 
+	// EQUALS & HASHCODE
 	@Override
     public int hashCode() {
         return Objects.hash(id);

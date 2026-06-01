@@ -30,6 +30,7 @@ public class Categoria {
         
     }
 
+    // GET & SET
     public Long getId() {
         return id;
     }
@@ -54,14 +55,8 @@ public class Categoria {
         this.descrizione = descrizione;
     }
 
-    public List<Prodotto> getProdotti() {
-        return prodotti;
-    }
-
-    public void setProdotti(List<Prodotto> prodotti) {
-        this.prodotti = prodotti;
-    }
-
+  
+    // EQUALS & HASHCODE
     @Override
     public int hashCode() {
         return Objects.hash(id);
@@ -79,3 +74,12 @@ public class Categoria {
         return Objects.equals(id, other.id);
     }
 }
+
+
+/*  public List<Prodotto> getProdotti() {
+        return prodotti;
+    }
+
+    public void setProdotti(List<Prodotto> prodotti) {
+        this.prodotti = prodotti;
+    }*/

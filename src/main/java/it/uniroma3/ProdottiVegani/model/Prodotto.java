@@ -1,9 +1,8 @@
 package it.uniroma3.ProdottiVegani.model;
 
 import java.util.List;
-import jakarta.persistence.JoinColumn;
 import java.util.Objects;
-import java.util.Set;
+
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,8 +11,6 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
@@ -60,13 +57,14 @@ public class Prodotto {
     @ManyToOne
     private Categoria categoria;
 
-    @ManyToMany
+   /* @ManyToMany
     @JoinTable(
         name = "prodotto_ingrediente",
         joinColumns = @JoinColumn(name = "prodotto_id"),
         inverseJoinColumns = @JoinColumn(name = "ingrediente_id")
-    )
-    private Set<Ingrediente> ingredienti;
+    )*/
+    
+    //private Set<Ingrediente> ingredienti;
 
     @OneToMany(mappedBy = "prodotto")
     private List<Recensione> recensioni;
@@ -82,6 +80,8 @@ public class Prodotto {
         super();
     }
 
+    
+    // GET & SET 
     public Long getId() {
         return id;
     }
@@ -160,8 +160,28 @@ public class Prodotto {
     public void setCategory(Categoria category) {
         this.categoria = category;
     }
+    
+    
+    // EQUALS & HASHCODE
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 
-    public Set<Ingrediente> getIngredienti() {
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Prodotto other = (Prodotto) obj;
+        return Objects.equals(id, other.id);
+    }
+
+
+   /* public Set<Ingrediente> getIngredienti() {
         return ingredienti;
     }
 
@@ -192,22 +212,6 @@ public class Prodotto {
 
 	public void setWishlist(List<Wishlist> wishlist) {
 		this.wishlist = wishlist;
+	}*/
+
 	}
-
-	@Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Prodotto other = (Prodotto) obj;
-        return Objects.equals(id, other.id);
-    }
-}

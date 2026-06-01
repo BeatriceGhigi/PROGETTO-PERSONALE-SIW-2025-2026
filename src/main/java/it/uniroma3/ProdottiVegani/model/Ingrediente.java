@@ -49,6 +49,8 @@ public class Ingrediente {
  
     }
 
+    
+    // GET & SET
 	public Long getId() {
 		return id;
 	}
@@ -89,14 +91,8 @@ public class Ingrediente {
 		this.naturale = naturale;
 	}
 
-	public Set<Prodotto> getProdotti() {
-		return prodotti;
-	}
 
-	public void setProdotti(Set<Prodotto> prodotti) {
-		this.prodotti = prodotti;
-	}
-
+// EQUALS & HASHCODE
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -114,5 +110,12 @@ public class Ingrediente {
 		return Objects.equals(id, other.id);
 	}
     
-    
+	
+   /* public Set<Prodotto> getProdotti() {
+		return prodotti;
+	}
+
+	public void setProdotti(Set<Prodotto> prodotti) {
+		this.prodotti = prodotti;
+	}*/
 }

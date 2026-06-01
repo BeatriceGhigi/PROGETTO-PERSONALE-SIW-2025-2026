@@ -34,6 +34,7 @@ public class Wishlist {
         
     }
 
+    //GET & SET
     public Long getId() {
         return id;
     }
@@ -50,7 +51,7 @@ public class Wishlist {
         this.dataAggiunta = dataAggiunta;
     }
 
-    public Utente getUtente() {
+  /* public Utente getUtente() {
         return utente;
     }
 
@@ -64,8 +65,9 @@ public class Wishlist {
 
     public void setProdotto(Prodotto prodotto) {
         this.prodotto = prodotto;
-    }
+    }*/
 
+    //EQUALS & HASHCODE
     @Override
     public int hashCode() {
         return Objects.hash(id);
