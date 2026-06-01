@@ -36,6 +36,20 @@ public class Recensione {
     @ManyToOne
     @JoinColumn(name = "utente_id", nullable = false)
     private Utente autore;
+    
+    /*
+     * Lifecycle hooks per le date automatiche
+     * @PrePersist
+    protected void onCreate() {
+        this.dataCreazione = LocalDateTime.now();
+        this.dataUltimaModifica = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.dataUltimaModifica = LocalDateTime.now();
+    }
+     * */
 
     // COSTRUTTORE
     public Recensione() {
@@ -75,12 +89,12 @@ public class Recensione {
         this.prodotto = prodotto;
     }
 
-    public Utente getUtente() {
+    public Utente getAutore() {
         return autore;
     }
 
-    public void setUtente(Utente utente) {
-        this.autore = utente;
+    public void setAutore(Utente autore) {
+        this.autore = autore;
     }
 
     public LocalDateTime getDataCreazione() {
