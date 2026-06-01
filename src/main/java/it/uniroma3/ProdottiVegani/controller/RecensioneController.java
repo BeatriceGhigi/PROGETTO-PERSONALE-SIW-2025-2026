@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import it.uniroma3.ProdottiVegani.model.Recensione;
 import it.uniroma3.ProdottiVegani.service.ProdottoService;
 import it.uniroma3.ProdottiVegani.service.RecensioneService;
+import it.uniroma3.ProdottiVegani.service.UtenteService;
 
 @Controller
 public class RecensioneController {
@@ -16,10 +17,9 @@ public class RecensioneController {
     private RecensioneService recensioneService;
     private ProdottoService prodottoService;
     private UtenteService utenteService;
+    //bisogna mettere anche utente perche in recensione utente è nullable=false
 
-    public RecensioneController(RecensioneService recensioneService,
-                                ProdottoService prodottoService,
-                                UtenteService utenteService) {
+    public RecensioneController(RecensioneService recensioneService, ProdottoService prodottoService, UtenteService utenteService) {
         this.recensioneService = recensioneService;
         this.prodottoService = prodottoService;
         this.utenteService = utenteService;

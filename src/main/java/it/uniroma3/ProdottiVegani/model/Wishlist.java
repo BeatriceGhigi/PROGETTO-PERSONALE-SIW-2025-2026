@@ -1,5 +1,6 @@
 package it.uniroma3.ProdottiVegani.model;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
@@ -19,7 +20,7 @@ public class Wishlist {
     private Long id;
 
     @Column(nullable = false)
-    private String dataAggiunta;
+    private LocalDateTime dataAggiunta;
 
     @ManyToOne
     @JoinColumn(name = "utente_id", nullable = false)
@@ -29,6 +30,14 @@ public class Wishlist {
     @JoinColumn(name = "prodotto_id", nullable = false)
     private Prodotto prodotto;
 
+    /*
+     * // Hook per inserire automaticamente la data corrente al momento del salvataggio
+    @PrePersist
+    protected void onCreate() {
+        this.dataAggiunta = LocalDateTime.now();
+    }
+     * */
+    
     // COSTRUTTORE
     public Wishlist() {
         
@@ -43,15 +52,15 @@ public class Wishlist {
         this.id = id;
     }
 
-    public String getDataAggiunta() {
+    public LocalDateTime getDataAggiunta() {
         return dataAggiunta;
     }
 
-    public void setDataAggiunta(String dataAggiunta) {
+    public void setDataAggiunta(LocalDateTime dataAggiunta) {
         this.dataAggiunta = dataAggiunta;
     }
 
-  /* public Utente getUtente() {
+    public Utente getUtente() {
         return utente;
     }
 
@@ -65,7 +74,7 @@ public class Wishlist {
 
     public void setProdotto(Prodotto prodotto) {
         this.prodotto = prodotto;
-    }*/
+    }
 
     //EQUALS & HASHCODE
     @Override
