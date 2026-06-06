@@ -74,6 +74,7 @@ public class Prodotto {
     
     @OneToMany(mappedBy = "prodotto")
     private List<Wishlist> wishlist;
+    
 
     // COSTRUTTORE
     public Prodotto() {
