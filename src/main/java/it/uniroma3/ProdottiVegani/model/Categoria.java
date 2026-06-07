@@ -22,7 +22,7 @@ public class Categoria {
     @Column(length = 2000)
     private String descrizione;
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "categoria")
     private List<Prodotto> prodotti;
 
     // COSTRUTTORE
