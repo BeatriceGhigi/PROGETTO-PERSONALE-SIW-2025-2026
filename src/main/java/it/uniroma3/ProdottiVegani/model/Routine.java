@@ -38,8 +38,13 @@ public class Routine {
     @ManyToOne
     @JoinColumn(name = "utente_id", nullable = false)
     private Utente utente;
+    
 
+    @ManyToOne
+    @JoinColumn(name = "prodotto_id", nullable = false)
+    private Prodotto prodotto;
 
+    
     // COSTRUTTORE
     public Routine() {
         
