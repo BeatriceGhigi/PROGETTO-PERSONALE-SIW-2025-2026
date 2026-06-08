@@ -34,7 +34,7 @@ public class Utente {
     @Column(nullable = false)
     private SkinType skinType;
 
-    @OneToMany(mappedBy = "utente")
+    @OneToMany(mappedBy = "autore")
     private List<Recensione> reviews;
 
     @OneToMany(mappedBy = "utente")
