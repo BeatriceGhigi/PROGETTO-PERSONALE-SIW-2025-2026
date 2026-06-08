@@ -81,26 +81,7 @@ public class Utente {
     public void setSkinType(SkinType skinType) {
         this.skinType = skinType;
     }
-    
-    //EQUALS & HASHCODE
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Utente other = (Utente) obj;
-        return Objects.equals(id, other.id);
-    }
-
-   /* public List<Recensione> getReviews() {
+    public List<Recensione> getReviews() {
         return reviews;
     }
 
@@ -123,7 +104,27 @@ public class Utente {
 
 	public void setWishlist(List<Wishlist> wishlist) {
 		this.wishlist = wishlist;
-	}*/
+	}
+    
+    //EQUALS & HASHCODE
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Utente other = (Utente) obj;
+        return Objects.equals(id, other.id);
+    }
+
+   
 
 	
 }

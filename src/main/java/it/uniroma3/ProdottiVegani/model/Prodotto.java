@@ -149,12 +149,12 @@ public class Prodotto {
         this.brand = brand;
     }
 
-    public Categoria getCategory() {
+    public Categoria getCategoria() {
         return categoria;
     }
 
-    public void setCategory(Categoria category) {
-        this.categoria = category;
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
       
     public List<Ingrediente> getIngredienti() {
@@ -165,15 +165,19 @@ public class Prodotto {
         this.ingredienti = ingredienti;
     }
 
-    public List<Recensione> getReviews() {
-        return recensioni;
-    }
+   
 
-    public void setReviews(List<Recensione> reviews) {
-        this.recensioni = reviews;
-    }
+    public List<Recensione> getRecensioni() {
+		return recensioni;
+	}
 
-    public List<Routine> getRoutineSteps() {
+
+	public void setRecensioni(List<Recensione> recensioni) {
+		this.recensioni = recensioni;
+	}
+
+
+	public List<Routine> getRoutineSteps() {
         return routineSteps;
     }
 

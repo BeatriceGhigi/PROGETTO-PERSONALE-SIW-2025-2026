@@ -1,7 +1,8 @@
 package it.uniroma3.ProdottiVegani.model;
 
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
+
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -42,7 +43,7 @@ public class Ingrediente {
     private boolean naturale;
 
     @ManyToMany(mappedBy = "ingredienti")
-    private Set<Prodotto> prodotti;
+    private List<Prodotto> prodotti;
 
     // COSTRUTTORE
     public Ingrediente() {
@@ -90,7 +91,13 @@ public class Ingrediente {
 	public void setNaturale(boolean naturale) {
 		this.naturale = naturale;
 	}
+ public List<Prodotto> getProdotti() {
+		return prodotti;
+	}
 
+	public void setProdotti(List<Prodotto> prodotti) {
+		this.prodotti = prodotti;
+	}
 
 // EQUALS & HASHCODE
 	@Override
@@ -111,11 +118,5 @@ public class Ingrediente {
 	}
     
 	
-   /* public Set<Prodotto> getProdotti() {
-		return prodotti;
-	}
-
-	public void setProdotti(Set<Prodotto> prodotti) {
-		this.prodotti = prodotti;
-	}*/
+   
 }

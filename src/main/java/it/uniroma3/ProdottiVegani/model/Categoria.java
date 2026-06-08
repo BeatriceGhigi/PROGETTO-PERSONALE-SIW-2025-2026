@@ -55,6 +55,13 @@ public class Categoria {
         this.descrizione = descrizione;
     }
 
+    public List<Prodotto> getProdotti() {
+        return prodotti;
+    }
+
+    public void setProdotti(List<Prodotto> prodotti) {
+        this.prodotti = prodotti;
+    }
   
     // EQUALS & HASHCODE
     @Override
@@ -76,10 +83,4 @@ public class Categoria {
 }
 
 
-/*  public List<Prodotto> getProdotti() {
-        return prodotti;
-    }
 
-    public void setProdotti(List<Prodotto> prodotti) {
-        this.prodotti = prodotti;
-    }*/
