@@ -2,14 +2,7 @@ package it.uniroma3.ProdottiVegani.model;
 
 import java.util.List;
 import java.util.Objects;
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
 
-
-=======
->>>>>>> 66407a5ae55a7f0ca02e1009ad46c441f505cdcf
->>>>>>> Stashed changes
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -17,13 +10,6 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
-
-=======
->>>>>>> 66407a5ae55a7f0ca02e1009ad46c441f505cdcf
->>>>>>> Stashed changes
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
