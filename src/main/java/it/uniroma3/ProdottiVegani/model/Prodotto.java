@@ -60,14 +60,8 @@ public class Prodotto {
     private Categoria categoria;
 
    @ManyToMany
-    @JoinTable(
-        name = "prodotto_ingrediente",
-        joinColumns = @JoinColumn(name = "prodotto_id"),
-        inverseJoinColumns = @JoinColumn(name = "ingrediente_id")
-    )
-    
-    
-    private Set<Ingrediente> ingredienti;
+   private List<Ingrediente> ingredienti;
+   
 
     @OneToMany(mappedBy = "prodotto")
     private List<Recensione> recensioni;
@@ -165,11 +159,11 @@ public class Prodotto {
         this.categoria = category;
     }
       
-    public Set<Ingrediente> getIngredienti() {
+    public List<Ingrediente> getIngredienti() {
         return ingredienti;
     }
 
-    public void setIngredienti(Set<Ingrediente> ingredienti) {
+    public void setIngredienti(List<Ingrediente> ingredienti) {
         this.ingredienti = ingredienti;
     }
 
