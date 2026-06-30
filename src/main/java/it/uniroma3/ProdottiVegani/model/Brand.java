@@ -22,12 +22,6 @@ public class Brand {
     @Column(length = 2000)
     private String descrizione;
 
-    @Column(nullable = false)  // da capire
-    private boolean vegan;
-
-    @Column(nullable = false)    //da capire
-    private boolean crueltyFree;
-
     private String paese;
 
     private String sitoWeb;  
@@ -36,13 +30,13 @@ public class Brand {
     private List<Prodotto> prodotti; 
     
     
- /*   public List<Prodotto> getProdotti() {
+    public List<Prodotto> getProdotti() {
         return prodotti;
     }
 
     public void setProdotti(List<Prodotto> prodotti) {
         this.prodotti = prodotti;
-    }*/
+    }
 
     // COSTRUTTORE
     public Brand() {
@@ -75,21 +69,6 @@ public class Brand {
         this.descrizione = descrizione;
     }
 
-    public boolean isVegan() {
-        return vegan;
-    }
-
-    public void setVegan(boolean vegan) {
-        this.vegan = vegan;
-    }
-
-    public boolean isCrueltyFree() {
-        return crueltyFree;
-    }
-
-    public void setCrueltyFree(boolean crueltyFree) {
-        this.crueltyFree = crueltyFree;
-    }
 
     public String getPaese() {
         return paese;

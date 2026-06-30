@@ -90,6 +90,14 @@ public class Routine {
     public void setUtente(Utente utente) {
         this.utente = utente;
     }
+    
+    public Prodotto getProdotto() {
+        return prodotto;
+    }
+
+    public void setProdotto(Prodotto prodotto) {
+        this.prodotto=prodotto;
+    }
 
     
 //EQUALS & HASCHCODE
