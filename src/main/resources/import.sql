@@ -1,6 +1,6 @@
-INSERT INTO brand (id, nome, descrizione, vegan, cruelty_free, paese, sito_web) VALUES (1, 'BioBella', 'Brand italiano specializzato in cosmetici biologici certificati.', true, true, 'Italia', 'https://www.biobella.it');
-INSERT INTO brand (id, nome, descrizione, vegan, cruelty_free, paese, sito_web) VALUES (2, 'NaturePure', 'Brand francese di cosmetici naturali per la cura della pelle.', true, true, 'Francia', 'https://www.naturepure.fr');
-INSERT INTO brand (id, nome, descrizione, vegan, cruelty_free, paese, sito_web) VALUES (3, 'GreenGlow', 'Marchio tedesco focalizzato su skincare sostenibile e biologica.', true, true, 'Germania', 'https://www.greenglow.de');
+INSERT INTO brand (id, nome, descrizione, paese, sito_web) VALUES (1, 'BioBella', 'Brand italiano specializzato in cosmetici biologici certificati.', 'Italia', 'https://www.biobella.it');
+INSERT INTO brand (id, nome, descrizione, paese, sito_web) VALUES (2, 'NaturePure', 'Brand francese di cosmetici naturali per la cura della pelle.', 'Francia', 'https://www.naturepure.fr');
+INSERT INTO brand (id, nome, descrizione, paese, sito_web) VALUES (3, 'GreenGlow', 'Marchio tedesco focalizzato su skincare sostenibile e biologica.', 'Germania', 'https://www.greenglow.de');
 INSERT INTO categoria (id, nome, descrizione) VALUES (1, 'Crema Viso', 'Prodotti biologici per idratazione e cura quotidiana del viso.');
 INSERT INTO categoria (id, nome, descrizione) VALUES (2, 'Detergente Viso', 'Prodotti naturali per la pulizia delicata della pelle.');
 INSERT INTO categoria (id, nome, descrizione) VALUES (3, 'Burrocacao', 'Prodotti bio per protezione e nutrizione delle labbra.');
