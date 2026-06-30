@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Prodotto</title>
+</head>
+<body>
+    <h1 th:text="${prodotto.nome}">Nome prodotto</h1>
+
+    <div>
+        Descrizione: <span th:text="${prodotto.descrizione}">Descrizione prodotto</span>
+    </div>
+
+    <div>
+        Prezzo: <span th:text="${prodotto.prezzo}">0.00</span>
+    </div>
+
+    <div>
+        Vegan: <span th:text="${prodotto.vegan}">true</span>
+    </div>
+
+    <div>
+        Cruelty Free: <span th:text="${prodotto.crueltyFree}">true</span>
+    </div>
+
+    <div>
+        Brand: <span th:text="${prodotto.brand.nome}">Nome brand</span>
+    </div>
+
+    <div>
+        Categoria: <span th:text="${prodotto.categoria.nome}">Nome categoria</span>
+    </div>
+</body>
+</html>
