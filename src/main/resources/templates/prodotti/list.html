@@ -11,6 +11,12 @@
             <li th:each="prodotto : ${prodotti}">
                 <a th:href="@{'/prodotti/' + ${prodotto.id}}"
                    th:text="${prodotto.nome}">Nome prodotto</a>
+
+                
+
+                <a th:href="@{/utenti/1/wishlist/add/{prodottoId}(prodottoId=${prodotto.id})}">
+                    Aggiungi alla wishlist
+                </a>
             </li>
         </ul>
     </div>

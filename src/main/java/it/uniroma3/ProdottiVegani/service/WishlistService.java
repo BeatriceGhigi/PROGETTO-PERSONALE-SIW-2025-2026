@@ -42,11 +42,11 @@ private WishlistRepository wishlistRepository;
         this.wishlistRepository.deleteById(id);
     }
 
-    /*
+    
     //serve quando l'utente cliccherà su "Aggiungi alla Wishlist"
     @Transactional
     public Wishlist save(Wishlist wishlist) {
         return this.wishlistRepository.save(wishlist);
     }
-    */
+    
 }

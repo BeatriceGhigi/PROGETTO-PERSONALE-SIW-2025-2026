@@ -9,16 +9,23 @@ import it.uniroma3.ProdottiVegani.model.Utente;
 import it.uniroma3.ProdottiVegani.model.Wishlist;
 import it.uniroma3.ProdottiVegani.service.UtenteService;
 import it.uniroma3.ProdottiVegani.service.WishlistService;
+import java.time.LocalDateTime;
+import it.uniroma3.ProdottiVegani.model.Prodotto;
+import it.uniroma3.ProdottiVegani.service.ProdottoService;
 
 @Controller
 public class WishlistController {
 	private WishlistService wishlistService;
-    private UtenteService utenteService;
+	private UtenteService utenteService;
+	private ProdottoService prodottoService;
 
-    public WishlistController(WishlistService wishlistService, UtenteService utenteService) {
-        this.wishlistService = wishlistService;
-        this.utenteService = utenteService;
-    }
+	public WishlistController(WishlistService wishlistService,
+	                          UtenteService utenteService,
+	                          ProdottoService prodottoService) {
+	    this.wishlistService = wishlistService;
+	    this.utenteService = utenteService;
+	    this.prodottoService = prodottoService;
+	}
 
     @GetMapping("/utenti/{id}/wishlist")
     public String showWishlist(@PathVariable("id") Long id, Model model) {
@@ -29,7 +36,27 @@ public class WishlistController {
         model.addAttribute("utente", utente);
         return "wishlist/list";
     }
+    
+    @GetMapping("/utenti/{utenteId}/wishlist/add/{prodottoId}")
+    public String addToWishlist(@PathVariable("utenteId") Long utenteId,
+                                @PathVariable("prodottoId") Long prodottoId) {
 
+        Utente utente = this.utenteService.findById(utenteId)
+                .orElseThrow(() -> new IllegalArgumentException("Utente non trovato con ID: " + utenteId));
+
+        Prodotto prodotto = this.prodottoService.findById(prodottoId)
+                .orElseThrow(() -> new IllegalArgumentException("Prodotto non trovato con ID: " + prodottoId));
+
+        Wishlist wishlist = new Wishlist();
+        wishlist.setUtente(utente);
+        wishlist.setProdotto(prodotto);
+        wishlist.setDataAggiunta(LocalDateTime.now());
+
+        this.wishlistService.save(wishlist);
+
+        return "redirect:/utenti/" + utenteId + "/wishlist";
+    }
+    
     @GetMapping("/wishlist/delete/{id}")
     public String deleteWishlistItem(@PathVariable("id") Long id) {
         // Recupera l'elemento della wishlist in modo sicuro
