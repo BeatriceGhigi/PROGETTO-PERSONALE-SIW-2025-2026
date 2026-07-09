@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Ingrediente</title>
+</head>
+<body>
+
+<h1>Dettaglio Ingrediente</h1>
+
+<p>
+    <strong>Nome:</strong>
+    <span th:text="${ingrediente.nome}"></span>
+</p>
+
+<p>
+    <strong>Descrizione:</strong>
+    <span th:text="${ingrediente.descrizione}"></span>
+</p>
+
+<p>
+    <strong>Funzione:</strong>
+    <span th:text="${ingrediente.funzione}"></span>
+</p>
+
+<p>
+    <strong>Naturale:</strong>
+    <span th:text="${ingrediente.naturale}"></span>
+</p>
+
+<br>
+
+<a th:href="@{/ingredienti}">
+    Torna alla lista
+</a>
+
+</body>
+</html>
