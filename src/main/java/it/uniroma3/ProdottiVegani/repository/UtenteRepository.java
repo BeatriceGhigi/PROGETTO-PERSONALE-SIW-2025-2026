@@ -1,9 +1,14 @@
 package it.uniroma3.ProdottiVegani.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.repository.CrudRepository;
 
 import it.uniroma3.ProdottiVegani.model.Utente;
 
-public interface UtenteRepository extends CrudRepository<Utente, Long>{
+public interface UtenteRepository extends CrudRepository<Utente, Long> {
 
+	Optional<Utente> findByUsername(String username);
+
+	boolean existsByUsername(String username);
 }

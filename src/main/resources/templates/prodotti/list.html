@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
     <title>Prodotti</title>
 </head>
 <body>
@@ -12,13 +13,15 @@
                 <a th:href="@{'/prodotti/' + ${prodotto.id}}"
                    th:text="${prodotto.nome}">Nome prodotto</a>
 
-                
-
-                <a th:href="@{/utenti/1/wishlist/add/{prodottoId}(prodottoId=${prodotto.id})}">
-                    Aggiungi alla wishlist
-                </a>
+                <form th:action="@{/utenti/1/wishlist/add/{prodottoId}(prodottoId=${prodotto.id})}"
+                      method="post"
+                      style="display:inline;">
+                    <button type="submit">Aggiungi alla wishlist</button>
+                </form>
             </li>
         </ul>
     </div>
+
+    <a th:href="@{/}">Home</a>
 </body>
 </html>
