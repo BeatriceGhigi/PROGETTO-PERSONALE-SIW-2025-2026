@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/common :: head(title='Prodotto')}"></head>
+<body>
+<nav th:replace="~{fragments/common :: nav}"></nav>
+
+<div class="container" style="max-width: 700px;">
+    <h1 class="mb-4" th:text="${prodotto.id} != null ? 'Modifica prodotto' : 'Nuovo prodotto'">Prodotto</h1>
+
+    <form th:action="${prodotto.id} != null ? @{'/admin/prodotti/' + ${prodotto.id}} : @{/admin/prodotti}"
+          th:object="${prodotto}" method="post">
+
+        <div class="mb-3">
+            <label for="nome" class="form-label">Nome</label>
+            <input type="text" id="nome" th:field="*{nome}"
+                   class="form-control" th:classappend="${#fields.hasErrors('nome')} ? 'is-invalid'" />
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}">Errore nome</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="descrizione" class="form-label">Descrizione</label>
+            <textarea id="descrizione" th:field="*{descrizione}" rows="3"
+                      class="form-control" th:classappend="${#fields.hasErrors('descrizione')} ? 'is-invalid'"></textarea>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('descrizione')}" th:errors="*{descrizione}">Errore descrizione</div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="prezzo" class="form-label">Prezzo (€)</label>
+                <input type="number" step="0.01" id="prezzo" th:field="*{prezzo}"
+                       class="form-control" th:classappend="${#fields.hasErrors('prezzo')} ? 'is-invalid'" />
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('prezzo')}" th:errors="*{prezzo}">Errore prezzo</div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="formato" class="form-label">Formato (es. 50ml)</label>
+                <input type="text" id="formato" th:field="*{formato}"
+                       class="form-control" th:classappend="${#fields.hasErrors('formato')} ? 'is-invalid'" />
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('formato')}" th:errors="*{formato}">Errore formato</div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3 form-check">
+                <input type="checkbox" id="vegan" th:field="*{vegan}" class="form-check-input" />
+                <label for="vegan" class="form-check-label">Vegan</label>
+            </div>
+            <div class="col-md-6 mb-3 form-check">
+                <input type="checkbox" id="crueltyFree" th:field="*{crueltyFree}" class="form-check-input" />
+                <label for="crueltyFree" class="form-check-label">Cruelty Free</label>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="skinType" class="form-label">Tipo di pelle consigliato</label>
+            <select id="skinType" th:field="*{skinType}"
+                    class="form-select" th:classappend="${#fields.hasErrors('skinType')} ? 'is-invalid'">
+                <option value="">-- Seleziona --</option>
+                <option th:each="tipo : ${T(it.uniroma3.ProdottiVegani.model.Prodotto.SkinType).values()}"
+                        th:value="${tipo}" th:text="${tipo}"></option>
+            </select>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('skinType')}" th:errors="*{skinType}">Errore tipo pelle</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="brandId" class="form-label">Brand</label>
+            <select id="brandId" name="brandId" class="form-select">
+                <option value="">-- Seleziona un brand --</option>
+                <option th:each="b : ${tuttiIBrand}"
+                        th:value="${b.id}"
+                        th:text="${b.nome}"
+                        th:selected="${prodotto.brand != null and prodotto.brand.id == b.id}"></option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="categoriaId" class="form-label">Categoria</label>
+            <select id="categoriaId" name="categoriaId" class="form-select">
+                <option value="">-- Seleziona una categoria --</option>
+                <option th:each="c : ${tutteLeCategorie}"
+                        th:value="${c.id}"
+                        th:text="${c.nome}"
+                        th:selected="${prodotto.categoria != null and prodotto.categoria.id == c.id}"></option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label d-block">Ingredienti</label>
+            <div class="form-check" th:each="ingrediente : ${tuttiGliIngredienti}">
+                <input type="checkbox"
+                       class="form-check-input"
+                       name="ingredientiIds"
+                       th:id="'ingrediente-' + ${ingrediente.id}"
+                       th:value="${ingrediente.id}"
+                       th:checked="${prodotto.ingredienti != null and prodotto.ingredienti.contains(ingrediente)}" />
+                <label class="form-check-label" th:for="'ingrediente-' + ${ingrediente.id}" th:text="${ingrediente.nome}">Ingrediente</label>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Salva</button>
+    </form>
+</div>
+
+</body>
+</html>

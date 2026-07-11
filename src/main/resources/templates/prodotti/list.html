@@ -1,27 +1,37 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Prodotti</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/common :: head(title='Prodotti')}"></head>
 <body>
-    <h1>Lista prodotti</h1>
+<nav th:replace="~{fragments/common :: nav}"></nav>
 
-    <div>
-        <ul>
-            <li th:each="prodotto : ${prodotti}">
-                <a th:href="@{'/prodotti/' + ${prodotto.id}}"
-                   th:text="${prodotto.nome}">Nome prodotto</a>
-
-                <form th:action="@{/utenti/1/wishlist/add/{prodottoId}(prodottoId=${prodotto.id})}"
-                      method="post"
-                      style="display:inline;">
-                    <button type="submit">Aggiungi alla wishlist</button>
-                </form>
-            </li>
-        </ul>
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1>Prodotti</h1>
+        <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/admin/prodotti/nuovo}" class="btn btn-success">
+            + Nuovo prodotto
+        </a>
     </div>
 
-    <a th:href="@{/}">Home</a>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col" th:each="prodotto : ${prodotti}">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${prodotto.nome}">Nome prodotto</h5>
+                    <p class="card-text text-muted" th:text="${prodotto.brand != null ? prodotto.brand.nome : ''}">Brand</p>
+                    <p class="card-text" th:text="${prodotto.prezzo} + ' €'">0.00 €</p>
+                    <a th:href="@{'/prodotti/' + ${prodotto.id}}" class="btn btn-outline-primary btn-sm">Dettagli</a>
+
+                    <form sec:authorize="isAuthenticated()"
+                          th:action="@{/utenti/1/wishlist/add/{prodottoId}(prodottoId=${prodotto.id})}"
+                          method="post" class="d-inline">
+                        <button type="submit" class="btn btn-outline-secondary btn-sm">♡ Wishlist</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
