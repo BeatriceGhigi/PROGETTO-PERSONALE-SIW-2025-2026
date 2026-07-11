@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/common :: head(title='Brand')}"></head>
+<body>
+<nav th:replace="~{fragments/common :: nav}"></nav>
+
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1>Brand</h1>
+        <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/admin/brand/nuovo}" class="btn btn-success">
+            + Nuovo brand
+        </a>
+    </div>
+
+    <div class="list-group">
+        <a th:each="brand : ${brands}"
+           th:href="@{'/brand/' + ${brand.id}}"
+           class="list-group-item list-group-item-action d-flex justify-content-between">
+            <span th:text="${brand.nome}">Nome brand</span>
+            <span class="text-muted" th:text="${brand.paese}">Paese</span>
+        </a>
+    </div>
+</div>
+
+</body>
+</html>

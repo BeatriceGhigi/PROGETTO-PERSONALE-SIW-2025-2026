@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/common :: head(title='Brand')}"></head>
+<body>
+<nav th:replace="~{fragments/common :: nav}"></nav>
+
+<div class="container" style="max-width: 600px;">
+    <h1 class="mb-4" th:text="${brand.id} != null ? 'Modifica brand' : 'Nuovo brand'">Brand</h1>
+
+    <form th:action="${brand.id} != null ? @{'/admin/brand/' + ${brand.id}} : @{/admin/brand}"
+          th:object="${brand}" method="post">
+
+        <div class="mb-3">
+            <label for="nome" class="form-label">Nome</label>
+            <input type="text" id="nome" th:field="*{nome}"
+                   class="form-control" th:classappend="${#fields.hasErrors('nome')} ? 'is-invalid'" />
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}">Errore nome</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="descrizione" class="form-label">Descrizione</label>
+            <textarea id="descrizione" th:field="*{descrizione}" rows="4"
+                      class="form-control" th:classappend="${#fields.hasErrors('descrizione')} ? 'is-invalid'"></textarea>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('descrizione')}" th:errors="*{descrizione}">Errore descrizione</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="paese" class="form-label">Paese</label>
+            <input type="text" id="paese" th:field="*{paese}"
+                   class="form-control" th:classappend="${#fields.hasErrors('paese')} ? 'is-invalid'" />
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('paese')}" th:errors="*{paese}">Errore paese</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="sitoWeb" class="form-label">Sito web</label>
+            <input type="text" id="sitoWeb" th:field="*{sitoWeb}"
+                   class="form-control" th:classappend="${#fields.hasErrors('sitoWeb')} ? 'is-invalid'" />
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('sitoWeb')}" th:errors="*{sitoWeb}">Errore sito web</div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Salva</button>
+    </form>
+</div>
+
+</body>
+</html>
