@@ -1,0 +1,136 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background-color: #f7f7f5;
+  color: #222;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+h1 {
+  margin-bottom: 24px;
+}
+
+.filtri {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: flex-end;
+  background: white;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 24px;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.campo label {
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.campo select,
+.campo input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  min-width: 120px;
+}
+
+.azioni {
+  display: flex;
+  gap: 8px;
+}
+
+button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: #2e7d32;
+  color: white;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+button:hover {
+  background-color: #1b5e20;
+}
+
+button.secondario {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+button.secondario:hover {
+  background-color: #cfcfcf;
+}
+
+.errore {
+  color: #c62828;
+}
+
+.risultati-count {
+  color: #555;
+  margin-bottom: 12px;
+}
+
+.griglia-prodotti {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.card-prodotto {
+  background: white;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.card-prodotto h3 {
+  margin: 0 0 4px 0;
+}
+
+.brand-nome {
+  color: #777;
+  font-size: 0.85rem;
+  margin: 0 0 8px 0;
+}
+
+.prezzo {
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.formato {
+  color: #555;
+  margin: 4px 0;
+}
+
+.badge-container {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.badge {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+}

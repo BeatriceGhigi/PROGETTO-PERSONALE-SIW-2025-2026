@@ -46,6 +46,12 @@ public class ProdottoService {
 		return this.prodottoRepository.findById(id);
 	}
 
+	// Usato dall'endpoint REST /api/prodotti per la ricerca a filtri (React)
+	@Transactional(readOnly = true)
+	public List<Prodotto> cercaConFiltri(Long categoriaId, Long brandId, Double prezzoMin, Double prezzoMax) {
+		return this.prodottoRepository.cercaConFiltri(categoriaId, brandId, prezzoMin, prezzoMax);
+	}
+
 	@Transactional
 	public Prodotto salva(Prodotto prodotto, Long brandId, Long categoriaId, List<Long> ingredientiIds) {
 		collegaRelazioni(prodotto, brandId, categoriaId, ingredientiIds);
@@ -78,7 +84,6 @@ public class ProdottoService {
 		this.prodottoRepository.delete(prodotto);
 	}
 
-	// Collega il prodotto a Brand, Categoria e alla lista di Ingredienti selezionati nel form
 	private void collegaRelazioni(Prodotto prodotto, Long brandId, Long categoriaId, List<Long> ingredientiIds) {
 		if (brandId != null) {
 			Brand brand = this.brandRepository.findById(brandId)
