@@ -1,46 +1,84 @@
 package it.uniroma3.ProdottiVegani.service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import it.uniroma3.ProdottiVegani.model.Prodotto;
 import it.uniroma3.ProdottiVegani.model.Recensione;
+import it.uniroma3.ProdottiVegani.model.Utente;
+import it.uniroma3.ProdottiVegani.repository.ProdottoRepository;
 import it.uniroma3.ProdottiVegani.repository.RecensioneRepository;
-
+import it.uniroma3.ProdottiVegani.repository.UtenteRepository;
 
 @Service
 public class RecensioneService {
+
 	private RecensioneRepository recensioneRepository;
-	
-	public RecensioneService(RecensioneRepository recensioneRepository) {
-		this.recensioneRepository=recensioneRepository;
+	private ProdottoRepository prodottoRepository;
+	private UtenteRepository utenteRepository;
+
+	public RecensioneService(RecensioneRepository recensioneRepository,
+	                          ProdottoRepository prodottoRepository,
+	                          UtenteRepository utenteRepository) {
+		this.recensioneRepository = recensioneRepository;
+		this.prodottoRepository = prodottoRepository;
+		this.utenteRepository = utenteRepository;
 	}
-	
+
 	@Transactional(readOnly = true)
-    public List<Recensione> findAll() {
-        List<Recensione> recensioni = new ArrayList<>();
-        this.recensioneRepository.findAll().forEach(recensioni::add);
-        return recensioni;
-    }
+	public List<Recensione> findAll() {
+		List<Recensione> recensioni = new ArrayList<>();
+		this.recensioneRepository.findAll().forEach(recensioni::add);
+		return recensioni;
+	}
 
-    @Transactional(readOnly = true)
-    public Optional<Recensione> findById(Long id) {
-        return this.recensioneRepository.findById(id);
-    }
-    
-    //prende l'oggetto che contiene i dati scritti dall'utente
-    //e dice al database di salvarlo
-    @Transactional
-    public Recensione save(Recensione recensione) {
-        return this.recensioneRepository.save(recensione);
-    }
+	@Transactional(readOnly = true)
+	public Optional<Recensione> findById(Long id) {
+		return this.recensioneRepository.findById(id);
+	}
 
-    //prende l'id di una recensione e dice al database di eliminarla
-    @Transactional
-    public void deleteById(Long id) {
-        this.recensioneRepository.deleteById(id);
-    }
+	// Crea una nuova recensione, collegandola al prodotto e all'utente autenticato
+	@Transactional
+	public Recensione salva(Recensione recensione, Long prodottoId, String usernameAutore) {
+		Prodotto prodotto = this.prodottoRepository.findById(prodottoId)
+			.orElseThrow(() -> new IllegalArgumentException("Prodotto non trovato con id " + prodottoId));
+
+		Utente autore = this.utenteRepository.findByUsername(usernameAutore)
+			.orElseThrow(() -> new IllegalArgumentException("Utente non trovato: " + usernameAutore));
+
+		recensione.setProdotto(prodotto);
+		recensione.setAutore(autore);
+		recensione.setDataCreazione(LocalDateTime.now());
+		recensione.setDataUltimaModifica(LocalDateTime.now());
+
+		return this.recensioneRepository.save(recensione);
+	}
+
+	// Aggiorna una recensione esistente, SOLO se chi la modifica ne e' l'autore
+	@Transactional
+	public Recensione aggiorna(Long id, Recensione datiAggiornati, String usernameRichiedente) {
+		Recensione recensione = this.recensioneRepository.findById(id)
+			.orElseThrow(() -> new IllegalArgumentException("Recensione non trovata con id " + id));
+
+		if (!recensione.getAutore().getUsername().equals(usernameRichiedente)) {
+			throw new AccessDeniedException("Non puoi modificare una recensione scritta da un altro utente.");
+		}
+
+		recensione.setVoto(datiAggiornati.getVoto());
+		recensione.setCommento(datiAggiornati.getCommento());
+		recensione.setDataUltimaModifica(LocalDateTime.now());
+
+		return recensione;
+	}
+
+	@Transactional
+	public void deleteById(Long id) {
+		this.recensioneRepository.deleteById(id);
+	}
 }
