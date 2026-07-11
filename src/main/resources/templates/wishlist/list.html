@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/common :: head(title='La mia wishlist')}"></head>
+<body>
+<nav th:replace="~{fragments/common :: nav}"></nav>
+
+<div class="container">
+    <h1 class="mb-4">La mia wishlist</h1>
+
+    <div th:if="${wishlist.isEmpty()}">
+        <p class="text-muted">Non hai ancora aggiunto nessun prodotto alla wishlist.</p>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col" th:each="item : ${wishlist}">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${item.prodotto.nome}">Nome prodotto</h5>
+                    <p class="card-text" th:text="${item.prodotto.prezzo} + ' €'">0.00 €</p>
+                    <a th:href="@{'/prodotti/' + ${item.prodotto.id}}" class="btn btn-outline-primary btn-sm">Dettagli</a>
+
+                    <form th:action="@{'/wishlist/delete/' + ${item.id}}" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-outline-danger btn-sm">Rimuovi</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a th:href="@{/prodotti}" class="btn btn-link mt-3">Torna ai prodotti</a>
+</div>
+
+</body>
+</html>

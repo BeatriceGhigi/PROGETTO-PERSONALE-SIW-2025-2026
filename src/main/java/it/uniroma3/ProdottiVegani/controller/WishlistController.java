@@ -2,6 +2,8 @@ package it.uniroma3.ProdottiVegani.controller;
 
 import java.time.LocalDateTime;
 
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,23 +32,21 @@ public class WishlistController {
 		this.prodottoService = prodottoService;
 	}
 
-	@GetMapping("/utenti/{id}/wishlist")
-	public String showWishlist(@PathVariable("id") Long id, Model model) {
-		Utente utente = this.utenteService.findById(id)
-				.orElseThrow(() -> new IllegalArgumentException("Utente non trovato con ID: " + id));
+	// Mostra SOLO la wishlist dell'utente attualmente autenticato
+	@GetMapping("/wishlist")
+	public String showWishlist(Model model, Authentication authentication) {
+		Utente utente = this.utenteService.findByUsername(authentication.getName())
+				.orElseThrow(() -> new IllegalArgumentException("Utente non trovato: " + authentication.getName()));
 
-		model.addAttribute("wishlist", this.wishlistService.findByUtenteId(id));
+		model.addAttribute("wishlist", this.wishlistService.findByUtenteId(utente.getId()));
 		model.addAttribute("utente", utente);
 		return "wishlist/list";
 	}
 
-	// l'id utente è ancora passato nel path perché non abbiamo
-	// ancora Spring Security.
-	@PostMapping("/utenti/{utenteId}/wishlist/add/{prodottoId}")
-	public String addToWishlist(@PathVariable("utenteId") Long utenteId,
-	                             @PathVariable("prodottoId") Long prodottoId) {
-		Utente utente = this.utenteService.findById(utenteId)
-				.orElseThrow(() -> new IllegalArgumentException("Utente non trovato con ID: " + utenteId));
+	@PostMapping("/wishlist/add/{prodottoId}")
+	public String addToWishlist(@PathVariable("prodottoId") Long prodottoId, Authentication authentication) {
+		Utente utente = this.utenteService.findByUsername(authentication.getName())
+				.orElseThrow(() -> new IllegalArgumentException("Utente non trovato: " + authentication.getName()));
 		Prodotto prodotto = this.prodottoService.findById(prodottoId)
 				.orElseThrow(() -> new IllegalArgumentException("Prodotto non trovato con ID: " + prodottoId));
 
@@ -56,16 +56,20 @@ public class WishlistController {
 		wishlist.setDataAggiunta(LocalDateTime.now());
 		this.wishlistService.save(wishlist);
 
-		return "redirect:/utenti/" + utenteId + "/wishlist";
+		return "redirect:/wishlist";
 	}
 
-	@GetMapping("/wishlist/delete/{id}")
-	public String deleteWishlistItem(@PathVariable("id") Long id) {
+	// Elimina un elemento SOLO se appartiene all'utente autenticato
+	@PostMapping("/wishlist/delete/{id}")
+	public String deleteWishlistItem(@PathVariable("id") Long id, Authentication authentication) {
 		Wishlist item = this.wishlistService.findById(id)
 				.orElseThrow(() -> new IllegalArgumentException("Elemento wishlist non trovato con ID: " + id));
-		Long utenteId = item.getUtente().getId();
+
+		if (!item.getUtente().getUsername().equals(authentication.getName())) {
+			throw new AccessDeniedException("Non puoi eliminare un elemento della wishlist di un altro utente.");
+		}
 
 		this.wishlistService.deleteById(id);
-		return "redirect:/utenti/" + utenteId + "/wishlist";
+		return "redirect:/wishlist";
 	}
 }

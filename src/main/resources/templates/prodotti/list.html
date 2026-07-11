@@ -23,7 +23,7 @@
                     <a th:href="@{'/prodotti/' + ${prodotto.id}}" class="btn btn-outline-primary btn-sm">Dettagli</a>
 
                     <form sec:authorize="isAuthenticated()"
-                          th:action="@{/utenti/1/wishlist/add/{prodottoId}(prodottoId=${prodotto.id})}"
+                          th:action="@{'/wishlist/add/' + ${prodotto.id}}"
                           method="post" class="d-inline">
                         <button type="submit" class="btn btn-outline-secondary btn-sm">♡ Wishlist</button>
                     </form>
