@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/common :: head(title=${categoria.nome})}"></head>
+<body>
+<nav th:replace="~{fragments/common :: nav}"></nav>
+
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 th:text="${categoria.nome}">Nome categoria</h1>
+        <a sec:authorize="hasAuthority('ADMIN')"
+           th:href="@{'/admin/categorie/' + ${categoria.id} + '/modifica'}"
+           class="btn btn-outline-secondary">
+            Modifica
+        </a>
+    </div>
+
+    <p th:text="${categoria.descrizione}">Descrizione categoria</p>
+
+    <h2 class="mt-4">Prodotti in questa categoria</h2>
+    <div class="list-group">
+        <a th:each="prodotto : ${categoria.prodotti}"
+           th:href="@{'/prodotti/' + ${prodotto.id}}"
+           class="list-group-item list-group-item-action d-flex justify-content-between">
+            <span th:text="${prodotto.nome}">Nome prodotto</span>
+            <span class="badge bg-secondary" th:text="${prodotto.prezzo} + ' €'">0.00 €</span>
+        </a>
+    </div>
+
+    <a th:href="@{/categorie}" class="btn btn-link mt-3">Torna alle categorie</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/common :: head(title='Categorie')}"></head>
+<body>
+<nav th:replace="~{fragments/common :: nav}"></nav>
+
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1>Categorie</h1>
+        <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/admin/categorie/nuova}" class="btn btn-success">
+            + Nuova categoria
+        </a>
+    </div>
+
+    <div class="list-group">
+        <a th:each="categoria : ${categorie}"
+           th:href="@{'/categorie/' + ${categoria.id}}"
+           class="list-group-item list-group-item-action">
+            <span th:text="${categoria.nome}">Nome categoria</span>
+        </a>
+    </div>
+</div>
+
+</body>
+</html>

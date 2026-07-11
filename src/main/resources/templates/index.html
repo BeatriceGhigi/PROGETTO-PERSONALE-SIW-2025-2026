@@ -1,13 +1,54 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Home</title>
-</head>
+<head th:replace="~{fragments/common :: head(title='Home')}"></head>
 <body>
-    <h1>Home</h1>
+<nav th:replace="~{fragments/common :: nav}"></nav>
 
-    <div>
-        <a th:href="@{/prodotti}">Vai alla lista prodotti</a>
+<div class="container">
+    <div class="p-5 mb-4 bg-light rounded-3">
+        <h1 class="display-5">🌱 Prodotti Vegani</h1>
+        <p class="lead">Cosmetici vegani e cruelty-free: scopri categorie, brand, prodotti e ingredienti.</p>
     </div>
+
+    <div class="row g-4">
+        <div class="col-md-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Categorie</h5>
+                    <p class="card-text">Sfoglia i prodotti per categoria.</p>
+                    <a th:href="@{/categorie}" class="btn btn-outline-primary">Vai alle categorie</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Brand</h5>
+                    <p class="card-text">Scopri i brand disponibili.</p>
+                    <a th:href="@{/brand}" class="btn btn-outline-primary">Vai ai brand</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Prodotti</h5>
+                    <p class="card-text">Esplora il catalogo completo.</p>
+                    <a th:href="@{/prodotti}" class="btn btn-outline-primary">Vai ai prodotti</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Ingredienti</h5>
+                    <p class="card-text">Consulta gli ingredienti usati.</p>
+                    <a th:href="@{/ingredienti}" class="btn btn-outline-primary">Vai agli ingredienti</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>

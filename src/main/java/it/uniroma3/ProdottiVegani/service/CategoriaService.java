@@ -12,29 +12,52 @@ import it.uniroma3.ProdottiVegani.repository.CategoriaRepository;
 
 @Service
 public class CategoriaService {
-    private CategoriaRepository categoriaRepository;
 
-    public CategoriaService(CategoriaRepository categoriaRepository) {
-        this.categoriaRepository = categoriaRepository;
-    }
+	private CategoriaRepository categoriaRepository;
 
-    @Transactional(readOnly = true)
-    public List<Categoria> findAll() {
-        List<Categoria> categorie = new ArrayList<>();
-        this.categoriaRepository.findAll().forEach(categorie::add);
-        return categorie;
-    }
+	public CategoriaService(CategoriaRepository categoriaRepository) {
+		this.categoriaRepository = categoriaRepository;
+	}
 
-    @Transactional(readOnly = true)
-    public Optional<Categoria> findById(Long id) {
-        return this.categoriaRepository.findById(id);
-    }
+	@Transactional(readOnly = true)
+	public List<Categoria> findAll() {
+		List<Categoria> categorie = new ArrayList<>();
+		this.categoriaRepository.findAll().forEach(categorie::add);
+		return categorie;
+	}
 
-    public Categoria save(Categoria categoria) {
-        return this.categoriaRepository.save(categoria);
-    }
+	@Transactional(readOnly = true)
+	public Optional<Categoria> findById(Long id) {
+		return this.categoriaRepository.findById(id);
+	}
 
-    public void deleteById(Long id) {
-        this.categoriaRepository.deleteById(id);
-    }
+	@Transactional
+	public Categoria salva(Categoria categoria) {
+		return this.categoriaRepository.save(categoria);
+	}
+
+	@Transactional
+	public Categoria aggiorna(Long id, Categoria datiAggiornati) {
+		Categoria categoria = this.categoriaRepository.findById(id)
+			.orElseThrow(() -> new IllegalArgumentException("Categoria non trovata con id " + id));
+
+		categoria.setNome(datiAggiornati.getNome());
+		categoria.setDescrizione(datiAggiornati.getDescrizione());
+
+		return categoria;
+	}
+
+	@Transactional
+	public void elimina(Long id) {
+		Categoria categoria = this.categoriaRepository.findById(id)
+			.orElseThrow(() -> new IllegalArgumentException("Categoria non trovata con id " + id));
+
+		if (!categoria.getProdotti().isEmpty()) {
+			throw new IllegalStateException(
+				"Impossibile eliminare la categoria '" + categoria.getNome()
+				+ "': ci sono ancora prodotti associati.");
+		}
+
+		this.categoriaRepository.deleteById(id);
+	}
 }
