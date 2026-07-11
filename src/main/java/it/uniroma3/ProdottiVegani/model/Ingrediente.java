@@ -16,7 +16,7 @@ import jakarta.persistence.ManyToMany;
 @Entity
 public class Ingrediente {
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
