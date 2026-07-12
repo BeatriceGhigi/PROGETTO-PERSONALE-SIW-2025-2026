@@ -16,7 +16,7 @@ import jakarta.persistence.ManyToOne;
 @Entity
 public class Wishlist {
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
