@@ -8,11 +8,16 @@
 <div class="container">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h1 th:text="${prodotto.nome}">Nome prodotto</h1>
-        <a sec:authorize="hasAuthority('ADMIN')"
-           th:href="@{'/admin/prodotti/' + ${prodotto.id} + '/modifica'}"
-           class="btn btn-outline-secondary">
-            Modifica
-        </a>
+        <div sec:authorize="hasAuthority('ADMIN')">
+            <a th:href="@{'/admin/prodotti/' + ${prodotto.id} + '/modifica'}" class="btn btn-outline-secondary">
+                Modifica
+            </a>
+            <form th:action="@{'/admin/prodotti/' + ${prodotto.id} + '/elimina'}"
+                  method="post" class="d-inline"
+                  onsubmit="return confirm('Sei sicuro di voler eliminare questo prodotto? L\'operazione è irreversibile.');">
+                <button type="submit" class="btn btn-outline-danger">Elimina</button>
+            </form>
+        </div>
     </div>
 
     <p th:text="${prodotto.descrizione}">Descrizione prodotto</p>

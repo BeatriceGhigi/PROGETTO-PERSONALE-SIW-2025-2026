@@ -109,6 +109,7 @@ public class ProdottoController {
 		return "redirect:/prodotti/" + aggiornato.getId();
 	}
 
+	// NUOVO: mancava questo endpoint, il metodo nel service esisteva già ma non era raggiungibile
 	@PostMapping("/admin/prodotti/{id}/elimina")
 	public String eliminaProdotto(@PathVariable("id") Long id) {
 		this.prodottoService.elimina(id);
