@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
@@ -68,6 +69,12 @@
                th:href="@{'/recensioni/' + ${recensione.id} + '/modifica'}">
                 [Modifica]
             </a>
+            <form sec:authorize="isAuthenticated()"
+                  th:if="${#authentication.name == recensione.autore.username or #authorization.expression('hasAuthority(''ADMIN'')')}"
+                  th:action="@{'/recensioni/' + ${recensione.id} + '/delete'}"
+                  method="POST" style="display:inline;">
+                <button type="submit" class="btn btn-link p-0">[Elimina]</button>
+            </form>
         </div>
     </div>
 

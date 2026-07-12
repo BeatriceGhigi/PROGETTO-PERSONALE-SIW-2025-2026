@@ -61,10 +61,16 @@ public class RecensioneController {
 		return "redirect:/prodotti/" + aggiornata.getProdotto().getId();
 	}
 
-	@GetMapping("/recensioni/delete/{id}")
-	public String deleteRecensione(@PathVariable("id") Long id) {
-		Long prodottoId = this.recensioneService.findById(id).get().getProdotto().getId();
-		this.recensioneService.deleteById(id);
+	@PostMapping("/recensioni/{id}/delete")
+	public String deleteRecensione(@PathVariable("id") Long id, Authentication authentication) {
+		Recensione recensione = this.recensioneService.findById(id)
+			.orElseThrow(() -> new IllegalArgumentException("Recensione non trovata con id " + id));
+		Long prodottoId = recensione.getProdotto().getId();
+
+		boolean isAdmin = authentication.getAuthorities().stream()
+			.anyMatch(authority -> authority.getAuthority().equals("ADMIN"));
+
+		this.recensioneService.deleteById(id, authentication.getName(), isAdmin);
 		return "redirect:/prodotti/" + prodottoId;
 	}
 }

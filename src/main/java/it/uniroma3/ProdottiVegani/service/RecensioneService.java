@@ -77,8 +77,18 @@ public class RecensioneService {
 		return recensione;
 	}
 
+	// Elimina una recensione, SOLO se chi la elimina ne e' l'autore oppure e' un ADMIN.
+	// Stesso principio di autorizzazione gia' applicato in aggiorna(...).
 	@Transactional
-	public void deleteById(Long id) {
-		this.recensioneRepository.deleteById(id);
+	public void deleteById(Long id, String usernameRichiedente, boolean isAdmin) {
+		Recensione recensione = this.recensioneRepository.findById(id)
+			.orElseThrow(() -> new IllegalArgumentException("Recensione non trovata con id " + id));
+
+		boolean isAutore = recensione.getAutore().getUsername().equals(usernameRichiedente);
+		if (!isAutore && !isAdmin) {
+			throw new AccessDeniedException("Non puoi eliminare una recensione scritta da un altro utente.");
+		}
+
+		this.recensioneRepository.delete(recensione);
 	}
 }
