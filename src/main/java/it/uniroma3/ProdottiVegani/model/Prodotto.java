@@ -13,6 +13,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Prodotto {
@@ -29,15 +33,21 @@ public class Prodotto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
+    @Size(max = 150)
     @Column(nullable = false)
     private String nome;
 
+    @Size(max = 2000)
     @Column(length = 2000)
     private String descrizione;
 
+    @NotNull
+    @DecimalMin(value = "0.0", inclusive = false, message = "Il prezzo deve essere maggiore di zero")
     @Column(nullable = false)
     private Double prezzo;
 
+    @NotBlank
     @Column(nullable = false)
     private String formato;   // es. "50ml", "100ml"
 
@@ -47,6 +57,7 @@ public class Prodotto {
     @Column(nullable = false)
     private boolean crueltyFree;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private SkinType skinType;

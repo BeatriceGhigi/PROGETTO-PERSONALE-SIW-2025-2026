@@ -10,6 +10,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Recensione {
@@ -17,9 +21,13 @@ public class Recensione {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotNull
+    @Min(1)
+    @Max(5)
     @Column(nullable = false)
     private Integer voto;
 
+    @Size(max = 2000)
     @Column(length = 2000)
     private String commento;
     

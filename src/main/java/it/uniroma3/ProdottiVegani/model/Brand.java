@@ -9,6 +9,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Brand {
@@ -16,14 +19,18 @@ public class Brand {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
+    @Size(max = 150)
     @Column(nullable = false)
     private String nome;
 
+    @Size(max = 2000)
     @Column(length = 2000)
     private String descrizione;
 
     private String paese;
 
+    @Pattern(regexp = "(https?://.*)?", message = "Deve essere un URL valido oppure vuoto")
     private String sitoWeb;  
 
     @OneToMany(mappedBy = "brand")

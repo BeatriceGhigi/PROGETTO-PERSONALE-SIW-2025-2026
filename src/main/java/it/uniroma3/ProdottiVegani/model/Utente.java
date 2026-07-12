@@ -12,6 +12,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Utente {
@@ -29,9 +31,13 @@ public class Utente {
 	private Long id;
 
 	@Column(nullable = false, unique = true)
+	@NotBlank
+	@Size(min = 3, max = 50)
 	private String username;
 
 	@Column(nullable = false)
+	@NotBlank
+	@Size(min = 6, message = "La password deve avere almeno 6 caratteri")
 	private String password;
 
 	@Column(nullable = false)

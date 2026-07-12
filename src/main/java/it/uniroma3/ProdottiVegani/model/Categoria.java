@@ -9,6 +9,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Categoria {
@@ -16,9 +18,12 @@ public class Categoria {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
+    @Size(max = 150)
     @Column(nullable = false)
     private String nome;
 
+    @Size(max = 2000)
     @Column(length = 2000)
     private String descrizione;
 
@@ -81,6 +86,3 @@ public class Categoria {
         return Objects.equals(id, other.id);
     }
 }
-
-
-
