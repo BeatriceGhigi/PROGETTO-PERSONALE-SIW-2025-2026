@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import it.uniroma3.ProdottiVegani.exception.UsernameGiaRegistratoException;
 import it.uniroma3.ProdottiVegani.model.Utente;
 import it.uniroma3.ProdottiVegani.repository.UtenteRepository;
 
@@ -44,9 +45,13 @@ public class UtenteService {
 		return this.utenteRepository.existsByUsername(username);
 	}
 
-	// Registrazione di un nuovo utente: codifica la password e forza il ruolo USER
+	// Registrazione di un nuovo utente: verifica che lo username sia libero,
+	// codifica la password e forza il ruolo USER
 	@Transactional
 	public Utente registraNuovoUtente(Utente utente) {
+		if (this.existsByUsername(utente.getUsername())) {
+			throw new UsernameGiaRegistratoException(utente.getUsername());
+		}
 		utente.setPassword(this.passwordEncoder.encode(utente.getPassword()));
 		utente.setRuolo("USER");
 		return this.utenteRepository.save(utente);

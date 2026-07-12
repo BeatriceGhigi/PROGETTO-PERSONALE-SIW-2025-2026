@@ -13,6 +13,9 @@
     <div th:if="${param.logout}" class="alert alert-success">
         Logout effettuato con successo.
     </div>
+    <div th:if="${param.registrato}" class="alert alert-success">
+        Registrazione completata: ora puoi accedere.
+    </div>
 
     <form th:action="@{/login}" method="post">
         <div class="mb-3">
@@ -25,6 +28,8 @@
         </div>
         <button type="submit" class="btn btn-primary w-100">Accedi</button>
     </form>
+
+    <a th:href="@{/register}" class="btn btn-link mt-3">Non hai un account? Registrati</a>
 </div>
 
 </body>

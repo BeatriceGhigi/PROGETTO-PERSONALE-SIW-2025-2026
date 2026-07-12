@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/common :: head(title='Registrati')}"></head>
+<body>
+<nav th:replace="~{fragments/common :: nav}"></nav>
+
+<div class="container" style="max-width: 450px;">
+    <h1 class="mb-4">Crea un account</h1>
+
+    <form th:action="@{/register}" th:object="${utente}" method="post">
+
+        <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" id="username" th:field="*{username}" class="form-control"
+                   th:classappend="${#fields.hasErrors('username')} ? 'is-invalid'" />
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Errore username</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" id="password" th:field="*{password}" class="form-control"
+                   th:classappend="${#fields.hasErrors('password')} ? 'is-invalid'" />
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Errore password</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="skinType" class="form-label">Tipo di pelle</label>
+            <select id="skinType" th:field="*{skinType}" class="form-select"
+                    th:classappend="${#fields.hasErrors('skinType')} ? 'is-invalid'">
+                <option value="">-- Seleziona --</option>
+                <option th:each="tipo : ${T(it.uniroma3.ProdottiVegani.model.Utente.SkinType).values()}"
+                        th:value="${tipo}" th:text="${tipo}"></option>
+            </select>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('skinType')}" th:errors="*{skinType}">Errore tipo pelle</div>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Registrati</button>
+    </form>
+
+    <a th:href="@{/login}" class="btn btn-link mt-3">Hai già un account? Accedi</a>
+</div>
+
+</body>
+</html>

@@ -50,7 +50,7 @@ public class SecurityConfig {
             .cors(Customizer.withDefaults())
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(HttpMethod.GET,
-                    "/", "/login",
+                    "/", "/login", "/register",
                     "/categorie", "/categorie/**",
                     "/brand", "/brand/**",
                     "/prodotti", "/prodotti/**",
@@ -58,6 +58,7 @@ public class SecurityConfig {
                     "/api/**",
                     "/css/**", "/js/**", "/images/**"
                 ).permitAll()
+                .requestMatchers(HttpMethod.POST, "/register").permitAll()
                 .requestMatchers("/recensioni/**").authenticated()
                 .requestMatchers(HttpMethod.POST, "/prodotti/*/recensioni").authenticated()
                 .requestMatchers("/wishlist/**").authenticated()
