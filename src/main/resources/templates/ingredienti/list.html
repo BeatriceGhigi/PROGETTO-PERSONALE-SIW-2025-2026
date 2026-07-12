@@ -1,39 +1,42 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>Ingredienti</title>
-</head>
+<head th:replace="~{fragments/common :: head(title='Ingredienti')}"></head>
 <body>
+<nav th:replace="~{fragments/common :: nav}"></nav>
 
-<h1>Lista Ingredienti</h1>
+<div class="container">
+    <h1 class="mb-4">Ingredienti</h1>
 
-<table border="1">
+    <div th:if="${ingredienti.isEmpty()}">
+        <p class="text-muted">Nessun ingrediente disponibile.</p>
+    </div>
 
-    <tr>
-        <th>Nome</th>
-        <th>Funzione</th>
-        <th>Naturale</th>
-        <th>Dettagli</th>
-    </tr>
-
-    <tr th:each="ingrediente : ${ingredienti}">
-        <td th:text="${ingrediente.nome}"></td>
-        <td th:text="${ingrediente.funzione}"></td>
-        <td th:text="${ingrediente.naturale}"></td>
-
-        <td>
-            <a th:href="@{/ingredienti/{id}(id=${ingrediente.id})}">
-                Visualizza
-            </a>
-        </td>
-    </tr>
-
-</table>
-
-<br>
-
-<a th:href="@{/}">Home</a>
+    <table class="table table-hover align-middle" th:unless="${ingredienti.isEmpty()}">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Funzione</th>
+                <th>Origine</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="ingrediente : ${ingredienti}">
+                <td th:text="${ingrediente.nome}">Nome</td>
+                <td><span class="badge bg-info text-dark" th:text="${ingrediente.funzione}">Funzione</span></td>
+                <td>
+                    <span th:if="${ingrediente.naturale}" class="badge bg-success">Naturale</span>
+                    <span th:unless="${ingrediente.naturale}" class="badge bg-secondary">Sintetico</span>
+                </td>
+                <td class="text-end">
+                    <a th:href="@{/ingredienti/{id}(id=${ingrediente.id})}" class="btn btn-sm btn-outline-primary">
+                        Dettagli
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
 </body>
 </html>

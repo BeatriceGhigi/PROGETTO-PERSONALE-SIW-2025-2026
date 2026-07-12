@@ -1,38 +1,35 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>Ingrediente</title>
-</head>
+<head th:replace="~{fragments/common :: head(title=${ingrediente.nome})}"></head>
 <body>
+<nav th:replace="~{fragments/common :: nav}"></nav>
 
-<h1>Dettaglio Ingrediente</h1>
+<div class="container" style="max-width: 700px;">
+    <h1 class="mb-3" th:text="${ingrediente.nome}">Nome ingrediente</h1>
 
-<p>
-    <strong>Nome:</strong>
-    <span th:text="${ingrediente.nome}"></span>
-</p>
+    <p>
+        <span class="badge bg-info text-dark" th:text="${ingrediente.funzione}">Funzione</span>
+        <span th:if="${ingrediente.naturale}" class="badge bg-success">Naturale</span>
+        <span th:unless="${ingrediente.naturale}" class="badge bg-secondary">Sintetico</span>
+    </p>
 
-<p>
-    <strong>Descrizione:</strong>
-    <span th:text="${ingrediente.descrizione}"></span>
-</p>
+    <p th:text="${ingrediente.descrizione}">Descrizione ingrediente</p>
 
-<p>
-    <strong>Funzione:</strong>
-    <span th:text="${ingrediente.funzione}"></span>
-</p>
+    <h2 class="mt-4">Prodotti che lo contengono</h2>
+    <div th:if="${ingrediente.prodotti == null or ingrediente.prodotti.isEmpty()}">
+        <p class="text-muted">Nessun prodotto associato.</p>
+    </div>
+    <div class="list-group" th:unless="${ingrediente.prodotti == null or ingrediente.prodotti.isEmpty()}">
+        <a th:each="prodotto : ${ingrediente.prodotti}"
+           th:href="@{'/prodotti/' + ${prodotto.id}}"
+           class="list-group-item list-group-item-action d-flex justify-content-between">
+            <span th:text="${prodotto.nome}">Nome prodotto</span>
+            <span class="badge bg-secondary" th:text="${prodotto.prezzo} + ' €'">0.00 €</span>
+        </a>
+    </div>
 
-<p>
-    <strong>Naturale:</strong>
-    <span th:text="${ingrediente.naturale}"></span>
-</p>
-
-<br>
-
-<a th:href="@{/ingredienti}">
-    Torna alla lista
-</a>
+    <a th:href="@{/ingredienti}" class="btn btn-link mt-3">Torna agli ingredienti</a>
+</div>
 
 </body>
 </html>
