@@ -46,6 +46,13 @@ public class RecensioneService {
 	// Crea una nuova recensione, collegandola al prodotto e all'utente autenticato
 	@Transactional
 	public Recensione salva(Recensione recensione, Long prodottoId, String usernameAutore) {
+		// Difensivo: questo metodo deve SEMPRE creare una nuova recensione (INSERT),
+		// mai aggiornarne una esistente. Azzeriamo l'id nel caso in cui il form/client
+		// abbia inviato un id residuo (es. resubmit di una pagina in cache), altrimenti
+		// Spring Data interpreterebbe l'oggetto come "esistente" e tenterebbe un UPDATE,
+		// causando un ObjectOptimisticLockingFailureException sulla recensione sbagliata.
+		recensione.setId(null);
+
 		Prodotto prodotto = this.prodottoRepository.findById(prodottoId)
 			.orElseThrow(() -> new IllegalArgumentException("Prodotto non trovato con id " + prodottoId));
 
